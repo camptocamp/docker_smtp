@@ -1,0 +1,18 @@
+smtp-sink:
+  build: ./smtp-sink
+  ports:
+    - "25:25"
+
+courier-imap:
+  build: ./courier-imap
+  ports:
+    - "143:143"
+  volumes_from:
+    - smtp-sink:rw
+    
+webmail:
+  build: ./webmail
+  ports:
+    - "8080:80"
+  volumes_from:
+    - smtp-sink:rw

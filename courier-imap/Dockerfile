@@ -17,9 +17,7 @@ RUN apt-get update && \
 RUN useradd -ms /bin/bash -p PcdO6g4gV662A smtp
 
 # Generate script to run at startup
-RUN echo '#!/bin/bash' > /root/start.sh
-RUN echo "/usr/lib/courier/courier-authlib/authdaemond &" >> /root/start.sh
-RUN echo "/usr/sbin/couriertcpd -address=0 -maxprocs=40 -maxperip=20 -nodnslookup -noidentlookup 143 /usr/lib/courier/courier/imaplogin /usr/bin/imapd Maildir" >> /root/start.sh
+ADD start.sh /root/
 RUN chmod +x /root/start.sh
 
 # Expose the IMAP port

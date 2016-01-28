@@ -11,7 +11,8 @@ ENV DEBIAN_FRONTEND noninterative
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
 RUN apt-get update && \
-    apt-get install -y courier-imap
+    apt-get install -y courier-imap && \
+    rm -rf /var/lib/apt/lists/*
 
 # add a user 'smtp' with password : 'smtp'
 RUN useradd -ms /bin/bash -p PcdO6g4gV662A smtp

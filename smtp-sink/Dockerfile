@@ -8,7 +8,8 @@ MAINTAINER Vampouille "julien.acroute@camptocamp.com"
 ENV DEBIAN_FRONTEND noninterative
 
 RUN apt-get update && \
-    apt-get install -y postfix courier-base
+    apt-get install -y postfix courier-base && \
+    rm -rf /var/lib/apt/lists/*
 
 # add a user 'smtp' with password : 'smtp'
 RUN useradd -ms /bin/bash -p PcdO6g4gV662A smtp

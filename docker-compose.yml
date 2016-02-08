@@ -1,17 +1,17 @@
 smtp-sink:
-  build: ./smtp-sink
+  image: camptocamp/smtp-sink
   ports:
     - "25:25"
 
 courier-imap:
-  build: ./courier-imap
+  image: camptocamp/courier-imap
   ports:
     - "143:143"
   volumes_from:
     - smtp-sink:rw
     
 webmail:
-  build: ./webmail
+  image: camptocamp/sqwebmail
   ports:
     - "8080:80"
   volumes_from:

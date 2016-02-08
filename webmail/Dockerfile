@@ -22,6 +22,7 @@ RUN a2enmod cgi
 
 # configure redirection on apache
 ADD 000-default.conf /etc/apache2/sites-enabled/
+RUN mv /var/www/sqwebmail /var/www/html/
 
 # Generate script to run at startup
 ADD start.sh /root/

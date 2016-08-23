@@ -1,7 +1,7 @@
 #
 # Dockerfile for a catch-all SMTP server
 #
-FROM tianon/apache2
+FROM httpd:2.2
 
 MAINTAINER Vampouille "julien.acroute@camptocamp.com"
 
@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninterative
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
 RUN apt-get update && \
-    apt-get install -y postfix courier-base sqwebmail &&\
+    apt-get install -y --no-install-recommends postfix courier-base sqwebmail &&\
 		rm -fr /var/lib/apt/lists/*
 
 # add a user 'smtp' with password : 'smtp'
@@ -30,5 +30,12 @@ RUN chmod +x /root/start.sh
 
 # Expose the HTTP port
 EXPOSE 80
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_PID_FILE /var/run/apache2/apache2.pid
+ENV APACHE_RUN_DIR /var/run/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
 
 CMD ["/root/start.sh"]

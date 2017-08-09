@@ -1,18 +1,31 @@
-smtp-sink:
-  image: camptocamp/smtp-sink
-  ports:
-    - "25:25"
+version: "2"
+volumes:
+  mailbox:
+  sqlite:
+services:
+  smtp-sink:
+    build: smtp-sink/
+    image: camptocamp/smtp-sink
+    ports:
+      - "2525:25"
+    volumes:
+      - mailbox:/home/smtp/Maildir/
 
-courier-imap:
-  image: camptocamp/courier-imap
-  ports:
-    - "143:143"
-  volumes_from:
-    - smtp-sink:rw
-    
-webmail:
-  image: camptocamp/sqwebmail
-  ports:
-    - "8080:80"
-  volumes_from:
-    - smtp-sink:rw
+  courier-imap:
+    build: courier-imap/
+    image: camptocamp/courier-imap
+    ports:
+      - "143:143"
+    volumes:
+      - mailbox:/home/smtp/Maildir/
+
+  webmail:
+    build: webmail/
+    image: camptocamp/roundcube
+    environment:
+      - IMAP_HOSTNAME=courier-imap
+      - SMTP_HOSTNAME=smtp-sink
+    ports:
+      - "8080:80"
+    volumes:
+      - sqlite:/var/lib/dbconfig-common/sqlite3/roundcube

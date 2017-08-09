@@ -1,41 +1,18 @@
-#
-# Dockerfile for a catch-all SMTP server
-#
-FROM httpd:2.2
+FROM debian:stretch
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  apache2 libapache2-mod-php php-dompdf php-xml php7.0-mbstring php-sqlite3 \
+  && rm -rf /var/lib/apt/lists/* 
 
-MAINTAINER Vampouille "julien.acroute@camptocamp.com"
+ADD https://github.com/roundcube/roundcubemail/releases/download/1.3.0/roundcubemail-1.3.0-complete.tar.gz /tmp/
+RUN cd /var/www/html/ \
+  && tar xzf /tmp/roundcubemail-1.3.0-complete.tar.gz \
+  && mv roundcubemail-1.3.0/ webmail \
+  && chown -R www-data:www-data webmail/ \
+  && rm -fr /var/www/html/webmail/installer
+COPY config.inc.php /var/www/html/webmail/config/config.inc.php
+RUN mkdir -p /mnt/sqlite/roundcube \
+  && chown -R www-data /mnt/sqlite/roundcube
+VOLUME /mnt/sqlite
+CMD /bin/bash -c "source /etc/apache2/envvars && apache2 -D FOREGROUND"
 
-ENV DEBIAN_FRONTEND noninterative
 
-# Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start. 
-RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends postfix courier-base sqwebmail &&\
-		rm -fr /var/lib/apt/lists/*
-
-# add a user 'smtp' with password : 'smtp'
-RUN useradd -ms /bin/bash -p PcdO6g4gV662A smtp
-
-# enable cgi scripts
-RUN a2enmod cgi
-
-# configure redirection on apache
-ADD 000-default.conf /etc/apache2/sites-enabled/
-RUN mv /var/www/sqwebmail /var/www/html/
-
-# Generate script to run at startup
-ADD start.sh /root/
-RUN chmod +x /root/start.sh
-
-# Expose the HTTP port
-EXPOSE 80
-
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_PID_FILE /var/run/apache2/apache2.pid
-ENV APACHE_RUN_DIR /var/run/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-
-CMD ["/root/start.sh"]

@@ -6,6 +6,8 @@ This composition will launch 3 services in 3 images:
 * IMAP service on port 143, run by `courier-imap` (User : **smtp**, password: **smtp**)
 * WEBMAIL service on port *8080*, run by `apache2` and `sqwebmail` (User : **smtp**, password: **smtp**)
 
+check: http://127.0.0.1:8080/webmail/
+
 SMTP will accept all emails and store every emails receive on port 25 to only one mailbox. This mailbox can be read with a webmail available on port 8080 or with IMAP protocol available on standard port 143.
 
 Usage :
@@ -13,9 +15,8 @@ Usage :
 ```bash
 git clone https://github.com/camptocamp/docker_smtp.git
 cd docker_smtp/
-docker-compose build
+# docker-compose build # (optional step)
 docker-compose up
 ```
 
-
-Then you can configure apps to send emails to local port 25 and you can read received emails on http://127.0.0.1:8080/
+Then you can configure apps to send emails to local port 25 and you can read received emails on http://127.0.0.1:8080/webmail/

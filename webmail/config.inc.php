@@ -61,6 +61,6 @@ $config['product_name'] = 'Roundcube Webmail';
 // PLUGINS
 // ----------------------------------
 // List of active plugins (in plugins/ directory)
-$config['plugins'] = array();
+$config['plugins'] = array("autologon");
 
 

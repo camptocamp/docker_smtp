@@ -11,6 +11,7 @@ RUN cd /var/www/html/ \
   && rm -fr /var/www/html/webmail/installer
 COPY config.inc.php /var/www/html/webmail/config/config.inc.php
 COPY autologon.php /var/www/html/webmail/plugins/autologon/autologon.php
+COPY index.html /var/www/html/
 RUN mkdir -p /mnt/sqlite/roundcube \
   && chown -R www-data /mnt/sqlite/roundcube
 VOLUME /mnt/sqlite

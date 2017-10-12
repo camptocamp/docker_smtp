@@ -63,4 +63,10 @@ $config['product_name'] = 'Roundcube Webmail';
 // List of active plugins (in plugins/ directory)
 $config['plugins'] = array("autologon");
 
+# Workaround for issue #5
+$config['drafts_mbox'] = 'INBOX.Drafts';
+$config['junk_mbox'] = 'INBOX.Junk';
+$config['sent_mbox'] = 'INBOX.Sent';
+$config['trash_mbox'] = 'INBOX.Trash';
+$config['create_default_folders'] = true;
 

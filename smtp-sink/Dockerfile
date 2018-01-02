@@ -1,7 +1,7 @@
 #
 # Dockerfile for a catch-all SMTP server
 #
-FROM debian:jessie
+FROM debian:stretch
 
 MAINTAINER Vampouille "julien.acroute@camptocamp.com"
 
@@ -27,5 +27,3 @@ EXPOSE 25
 
 USER root
 CMD ["smtp-sink", "-c", "-d", "/home/smtp/Maildir/new/%M.", "-u", "smtp", "0.0.0.0:25", "10"]
-
-

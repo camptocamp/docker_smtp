@@ -1,13 +1,13 @@
 #
 # Dockerfile for a IMAP server
 #
-FROM debian:jessie
+FROM debian:stretch
 
 MAINTAINER Vampouille "julien.acroute@camptocamp.com"
 
 ENV DEBIAN_FRONTEND noninterative
 
-# Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start. 
+# Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
 RUN apt-get update && \
@@ -25,6 +25,3 @@ RUN chmod +x /root/start.sh
 EXPOSE 143
 
 CMD ["/root/start.sh"]
-
-
-

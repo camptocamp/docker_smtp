@@ -15,6 +15,7 @@ COPY index.html /var/www/html/
 RUN mkdir -p /mnt/sqlite/roundcube \
   && chown -R www-data /mnt/sqlite/roundcube
 VOLUME /mnt/sqlite
+EXPOSE 80
 CMD /bin/bash -c "source /etc/apache2/envvars && apache2 -D FOREGROUND"
 
 

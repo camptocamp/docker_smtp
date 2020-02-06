@@ -12,6 +12,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: "Building docker image"
+      working-directory: smtp-sink/
       run: docker build -t camptocamp/smtp-sink .
 
     - name: "Pushing image to docker hub"

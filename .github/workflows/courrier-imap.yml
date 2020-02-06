@@ -12,6 +12,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: "Building docker image"
+      working-directory: courrier-imap/
       run: docker build -t georchestra/courrier-imap .
 
     - name: "Pushing image to docker hub"

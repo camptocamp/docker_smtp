@@ -12,6 +12,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: "Building docker image"
+      working-directory: webmail/
       run: docker build -t georchestra/webmail .
 
     - name: "Pushing image to docker hub"

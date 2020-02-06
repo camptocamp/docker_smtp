@@ -2,7 +2,7 @@
 
 ![webmail](https://github.com/camptocamp/docker_smtp/workflows/webmail/badge.svg)
 ![smtp-sink](https://github.com/camptocamp/docker_smtp/workflows/smtp-sink/badge.svg)
-![courrier-imap](https://github.com/camptocamp/docker_smtp/workflows/courrier-imap/badge.svg)
+![courier-imap](https://github.com/camptocamp/docker_smtp/workflows/courier-imap/badge.svg)
 
 A simple docker image with SMTP, IMAP and a webmail. This composition is dedicated to development environements because it will accept all emails and never relay to internet. 
 

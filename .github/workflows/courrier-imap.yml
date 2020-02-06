@@ -1,4 +1,4 @@
-name: "courrier-imap"
+name: "courier-imap"
 on:
   push:
     paths:
@@ -18,7 +18,7 @@ jobs:
     - name: "Pushing image to docker hub"
       run: |
         docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
-        docker push georchestra/courier-imap
+        docker push camptocamp/courier-imap
       env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}

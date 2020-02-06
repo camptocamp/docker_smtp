@@ -1,0 +1,23 @@
+name: "webmail"
+on:
+  push:
+    paths:
+    - "webmail/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checking out"
+      uses: actions/checkout@v1
+
+    - name: "Building docker image"
+      run: docker build -t georchestra/webmail .
+
+    - name: "Pushing image to docker hub"
+      run: |
+        docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+        docker push georchestra/webmail
+      env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}

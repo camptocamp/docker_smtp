@@ -13,12 +13,12 @@ jobs:
 
     - name: "Building docker image"
       working-directory: webmail/
-      run: docker build -t georchestra/webmail .
+      run: docker build -t camptocamp/sqwebmail .
 
     - name: "Pushing image to docker hub"
       run: |
         docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
-        docker push georchestra/webmail
+        docker push camptocamp/sqwebmail
       env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
